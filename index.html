@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>School Online Result</title>
+      <!-- Tailwind CSS CDN -->
+      <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+      <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+
+      <!-- Custom CSS for additional styling -->
+      <style>
+          /* Basic body font and background are handled by Tailwind in index.html */
+          body {
+              font-family: 'Inter', sans-serif;
+          }
+
+          /* Enhancements for input fields and select elements */
+          input[type="number"]::-webkit-inner-spin-button,
+          input[type="number"]::-webkit-outer-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+          }
+          input[type="number"] {
+              -moz-appearance: textfield;
+          }
+
+          /* Styling for the result card */
+          .result-card {
+              background-color: #f9fafb; /* Light gray background for the card */
+              border: 1px solid #e2e8f0; /* Light border */
+              padding: 1.5rem;
+              border-radius: 0.5rem;
+              box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+              margin-top: 1.5rem; /* Space from button */
+          }
+
+          /* Styling for headings inside result card */
+          .result-card h2 {
+              font-size: 1.75rem; /* text-2xl */
+              font-weight: 700; /* font-bold */
+              color: #1a202c; /* gray-900 */
+              margin-bottom: 1rem;
+              text-align: center;
+          }
+
+          /* Styling for key-value pairs in result card */
+          .result-item {
+              display: flex;
+              justify-content: space-between;
+              padding: 0.5rem 0;
+              border-bottom: 1px dashed #cbd5e0; /* light gray dashed line */
+          }
+
+          .result-item:last-child {
+              border-bottom: none;
+          }
+
+          .result-item .label {
+              font-weight: 500; /* font-medium */
+              color: #4a5568; /* gray-700 */
+          }
+
+          .result-item .value {
+              font-weight: 600; /* font-semibold */
+              color: #2d3748; /* gray-800 */
+              text-align: right; /* Align value to the right */
+          }
+
+          /* Styling for subject marks table */
+          .marks-table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-top: 1.5rem;
+              font-size: 0.95rem;
+          }
+
+          .marks-table th, .marks-table td {
+              border: 1px solid #cbd5e0; /* Border for table cells */
+              padding: 0.75rem;
+              text-align: left;
+          }
+
+          .marks-table th {
+              background-color: #edf2f7; /* gray-200 */
+              font-weight: 600;
+              color: #2d3748; /* gray-800 */
+          }
+
+          .marks-table tr:nth-child(even) {
+              background-color: #f7fafc; /* light gray for even rows */
+          }
+
+          .marks-table tr:hover {
+              background-color: #e2e8f0; /* hover effect */
+          }
+
+          /* Specific styling for Pass/Fail status */
+          .status-pass {
+              color: #10b981; /* green-500 */
+              font-weight: 700;
+          }
+
+          .status-fail {
+              color: #ef4444; /* red-500 */
+              font-weight: 700;
+          }
+      </style>
+  </head>
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4 font-inter">
+      <div class="bg-white p-6 md:p-10 rounded-lg shadow-xl w-full max-w-2xl border-t-4 border-blue-500">
+          <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-6">
+              School Online Result Portal
+          </h1>
+          <p class="text-center text-gray-600 mb-8">Enter your details to view your result.</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <!-- Roll Number Input -->
+              <div>
+                  <label for="rollNumber" class="block text-gray-700 text-sm font-semibold mb-2">Roll Number</label>
+                  <input
+                      type="number"
+                      id="rollNumber"
+                      placeholder="e.g., 2001"
+                      class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                  />
+              </div>
+
+              <!-- Class Selection -->
+              <div>
+                  <label for="classSelect" class="block text-gray-700 text-sm font-semibold mb-2">Select Class</label>
+                  <select
+                      id="classSelect"
+                      class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 bg-white"
+                  >
+                      <!-- Options will be populated by JavaScript -->
+                  </select>
+              </div>
+
+              <!-- Enrollment Number Input -->
+              <div class="md:col-span-2">
+                  <label for="enrollmentNumber" class="block text-gray-700 text-sm font-semibold mb-2">Enrollment Number</label>
+                  <input
+                      type="text"
+                      id="enrollmentNumber"
+                      placeholder="e.g., ENR001AS"
+                      class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                  />
+              </div>
+          </div>
+
+          <!-- View Result Button -->
+          <button
+              id="viewResultBtn"
+              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+          >
+              View Result
+          </button>
+
+          <!-- Loading Indicator -->
+          <div id="loadingIndicator" class="mt-4 text-center text-blue-600 font-medium hidden">
+              Fetching result...
+          </div>
+
+          <!-- Message Display Area -->
+          <div id="messageDisplay" class="mt-6 text-center text-red-600 font-medium">
+              <!-- Messages like "Student not found" will appear here -->
+          </div>
+
+          <!-- Result Display Area -->
+          <div id="resultDisplay" class="mt-8">
+              <!-- Student result details will be dynamically inserted here -->
+          </div>
+      </div>
+
+      <!-- JavaScript Logic -->
+      <script>
+          // --- Data Source Configuration ---
+          // Mapping of class names to their corresponding JSON file paths
+          // Ensure these JSON files are placed in a 'data' subfolder relative to index.html
+          const classDataPaths = {
+              "Class 1": "data/class_1.json",
+              "Class 2": "data/class_2.json"
+              // Add more classes here as you create their JSON files:
+              // "Class 3": "data/class_3.json",
+              // "Class 4": "data/class_4.json"
+          };
+
+          // Cache for fetched data to avoid re-fetching the same class multiple times
+          const fetchedClassData = {};
+
+          // --- DOM Elements ---
+          const rollNumberInput = document.getElementById('rollNumber');
+          const classSelect = document.getElementById('classSelect');
+          const enrollmentNumberInput = document.getElementById('enrollmentNumber');
+          const viewResultBtn = document.getElementById('viewResultBtn');
+          const loadingIndicator = document.getElementById('loadingIndicator');
+          const messageDisplay = document.getElementById('messageDisplay');
+          const resultDisplay = document.getElementById('resultDisplay');
+
+          // --- Utility Functions ---
+
+          /**
+           * Displays messages to the user (e.g., error messages, success messages).
+           * @param {string} message - The message to display.
+           * @param {string} type - The type of message ('error', 'success', 'info'). Affects styling.
+           */
+          function showMessage(message, type = 'info') {
+              messageDisplay.textContent = message;
+              messageDisplay.className = 'mt-6 text-center font-medium'; // Reset classes
+              if (type === 'error') {
+                  messageDisplay.classList.add('text-red-600');
+              } else if (type === 'success') {
+                  messageDisplay.classList.add('text-green-600');
+              } else {
+                  messageDisplay.classList.add('text-gray-600');
+              }
+              resultDisplay.innerHTML = ''; // Clear previous results
+          }
+
+          /**
+           * Renders the student's result on the page.
+           * @param {Object} studentData - The object containing student's result data.
+           * @param {string} selectedClass - The class selected by the user.
+           */
+          function renderResult(studentData, selectedClass) {
+              resultDisplay.innerHTML = ''; // Clear previous content
+              messageDisplay.innerHTML = ''; // Clear any messages
+
+              const resultCard = document.createElement('div');
+              resultCard.className = 'result-card'; // Custom class from style.css
+
+              // Create header
+              const header = document.createElement('h2');
+              header.textContent = `Result for ${selectedClass}`;
+              resultCard.appendChild(header);
+
+              // General student details
+              const detailsContainer = document.createElement('div');
+              detailsContainer.className = 'space-y-2'; // Tailwind for vertical spacing
+
+              const createResultItem = (label, value, valueClass = '') => {
+                  const item = document.createElement('div');
+                  item.className = 'result-item'; // Custom class
+                  const labelSpan = document.createElement('span');
+                  labelSpan.className = 'label'; // Custom class
+                  labelSpan.textContent = label;
+                  const valueSpan = document.createElement('span');
+                  valueSpan.className = `value ${valueClass}`; // Custom class
+                  valueSpan.textContent = value;
+                  item.appendChild(labelSpan);
+                  item.appendChild(valueSpan);
+                  return item;
+              };
+
+              detailsContainer.appendChild(createResultItem('Student Name', studentData['Student Name']));
+              detailsContainer.appendChild(createResultItem('Roll Number', studentData['Student Roll Number']));
+              detailsContainer.appendChild(createResultItem('Enrollment Number', studentData['Enrollment Number']));
+              detailsContainer.appendChild(createResultItem('Percentage', `${studentData['Percentage']}%`));
+              detailsContainer.appendChild(createResultItem('Grade', studentData['Grade']));
+
+              const passFailClass = studentData['Pass/Fail'] === 'Pass' ? 'status-pass' : 'status-fail';
+              detailsContainer.appendChild(createResultItem('Status', studentData['Pass/Fail'], passFailClass));
+
+              resultCard.appendChild(detailsContainer);
+
+              // Marks Table
+              const marksTable = document.createElement('table');
+              marksTable.className = 'marks-table'; // Custom class from style.css
+
+              const thead = document.createElement('thead');
+              const headerRow = document.createElement('tr');
+              ['Subject', 'Marks Obtained'].forEach(text => {
+                  const th = document.createElement('th');
+                  th.textContent = text;
+                  headerRow.appendChild(th);
+              });
+              thead.appendChild(headerRow);
+              marksTable.appendChild(thead);
+
+              const tbody = document.createElement('tbody');
+              // Iterate through keys that start with "Mark Obtained"
+              for (const key in studentData) {
+                  if (key.startsWith('Mark Obtained')) {
+                      const subjectName = key.replace('Mark Obtained (', '').replace(')', '');
+                      const tr = document.createElement('tr');
+                      const tdSubject = document.createElement('td');
+                      tdSubject.textContent = subjectName;
+                      const tdMarks = document.createElement('td');
+                      tdMarks.textContent = studentData[key];
+                      tr.appendChild(tdSubject);
+                      tr.appendChild(tdMarks);
+                      tbody.appendChild(tr);
+                  }
+              }
+              marksTable.appendChild(tbody);
+              resultCard.appendChild(marksTable);
+
+              resultDisplay.appendChild(resultCard);
+          }
+
+          // --- Main Logic ---
+
+          /**
+           * Populates the class dropdown dynamically based on the configured JSON data paths.
+           */
+          function populateClassDropdown() {
+              classSelect.innerHTML = '<option value="">Select a Class</option>';
+              for (const className in classDataPaths) {
+                  const option = document.createElement('option');
+                  option.value = className;
+                  option.textContent = className;
+                  classSelect.appendChild(option);
+              }
+          }
+
+          /**
+           * Fetches JSON data for a given class.
+           * Uses a cache to avoid re-fetching data.
+           * @param {string} className - The name of the class (e.g., "Class 1").
+           * @returns {Promise<Array<Object>>} A promise that resolves with the parsed student data.
+           */
+          async function fetchClassData(className) {
+              if (fetchedClassData[className]) {
+                  console.log(`Using cached data for ${className}`);
+                  return fetchedClassData[className];
+              }
+
+              const path = classDataPaths[className];
+              if (!path) {
+                  throw new Error(`No data file path configured for ${className}`);
+              }
+
+              console.log(`Fetching data for ${className} from: ${path}`);
+              try {
+                  const response = await fetch(path);
+                  if (!response.ok) {
+                      throw new Error(`HTTP error! status: ${response.status} - Could not load ${path}. Ensure the 'data' folder and JSON files exist and the page is served by a web server.`);
+                  }
+                  const jsonData = await response.json();
+                  fetchedClassData[className] = jsonData; // Cache the data
+                  return jsonData;
+              } catch (error) {
+                  console.error('Error fetching class data:', error);
+                  throw new Error(`Failed to load data for ${className}. Check console for details. Ensure 'data' folder and JSON files are correct and the page is served by a web server (e.g., http://localhost).`);
+              }
+          }
+
+          /**
+           * Handles the click event for the "View Result" button.
+           */
+          viewResultBtn.addEventListener('click', async () => {
+              const rollNumber = parseInt(rollNumberInput.value.trim());
+              const selectedClass = classSelect.value.trim();
+              const enrollmentNumber = enrollmentNumberInput.value.trim().toUpperCase();
+
+              // --- Input Validation ---
+              if (!rollNumber || isNaN(rollNumber)) {
+                  showMessage('Please enter a valid Roll Number.', 'error');
+                  return;
+              }
+              if (!selectedClass) {
+                  showMessage('Please select a Class.', 'error');
+                  return;
+              }
+              if (!enrollmentNumber) {
+                  showMessage('Please enter your Enrollment Number.', 'error');
+                  return;
+              }
+
+              loadingIndicator.classList.remove('hidden'); // Show loading indicator
+              messageDisplay.innerHTML = ''; // Clear previous messages
+              resultDisplay.innerHTML = ''; // Clear previous results
+
+              try {
+                  // Fetch data for the selected class
+                  const classData = await fetchClassData(selectedClass);
+
+                  if (!classData || classData.length === 0) {
+                      showMessage(`No data found for ${selectedClass}. The JSON file might be empty or malformed.`, 'error');
+                      return;
+                  }
+
+                  // Find the student in the fetched class data
+                  const studentResult = classData.find(student =>
+                      student['Student Roll Number'] === rollNumber &&
+                      student['Enrollment Number'].toUpperCase() === enrollmentNumber
+                  );
+
+                  // --- Display Result ---
+                  if (studentResult) {
+                      renderResult(studentResult, selectedClass);
+                  } else {
+                      showMessage('Student not found or credentials do not match for the selected class. Please check your details.', 'error');
+                  }
+              } catch (error) {
+                  showMessage(error.message, 'error');
+              } finally {
+                  loadingIndicator.classList.add('hidden'); // Hide loading indicator
+              }
+          });
+
+          // --- Initialize ---
+          // Populate the class dropdown when the page loads
+          document.addEventListener('DOMContentLoaded', populateClassDropdown);
+      </script>
+  </body>
+  </html>

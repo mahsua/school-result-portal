@@ -1,0 +1,62 @@
+[
+  {
+    "Student Roll Number": 101,
+    "Student Name": "Amit Patel",
+    "Mark Obtained (Hindi)": 75,
+    "Mark Obtained (English)": 80,
+    "Mark Obtained (Maths)": 70,
+    "Mark Obtained (EVS)": 85,
+    "Percentage": 77.5,
+    "Grade": "B",
+    "Pass/Fail": "Pass",
+    "Enrollment Number": "ENR001AP"
+  },
+  {
+    "Student Roll Number": 102,
+    "Student Name": "Bhavna Devi",
+    "Mark Obtained (Hindi)": 90,
+    "Mark Obtained (English)": 92,
+    "Mark Obtained (Maths)": 88,
+    "Mark Obtained (EVS)": 95,
+    "Percentage": 91.25,
+    "Grade": "A",
+    "Pass/Fail": "Pass",
+    "Enrollment Number": "ENR002BD"
+  },
+  {
+    "Student Roll Number": 103,
+    "Student Name": "Chetan S.",
+    "Mark Obtained (Hindi)": 60,
+    "Mark Obtained (English)": 65,
+    "Mark Obtained (Maths)": 55,
+    "Mark Obtained (EVS)": 70,
+    "Percentage": 62.5,
+    "Grade": "C",
+    "Pass/Fail": "Pass",
+    "Enrollment Number": "ENR003CS"
+  },
+  {
+    "Student Roll Number": 104,
+    "Student Name": "Disha K.",
+    "Mark Obtained (Hindi)": 40,
+    "Mark Obtained (English)": 35,
+    "Mark Obtained (Maths)": 45,
+    "Mark Obtained (EVS)": 30,
+    "Percentage": 37.5,
+    "Grade": "F",
+    "Pass/Fail": "Fail",
+    "Enrollment Number": "ENR004DK"
+  },
+  {
+    "Student Roll Number": 105,
+    "Student Name": "Eshaan V.",
+    "Mark Obtained (Hindi)": 82,
+    "Mark Obtained (English)": 85,
+    "Mark Obtained (Maths)": 78,
+    "Mark Obtained (EVS)": 80,
+    "Percentage": 81.25,
+    "Grade": "A",
+    "Pass/Fail": "Pass",
+    "Enrollment Number": "ENR005EV"
+  }
+]

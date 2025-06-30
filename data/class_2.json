@@ -1,0 +1,62 @@
+[
+  {
+    "Student Roll Number": 2001,
+    "Student Name": "Aditya Sharma",
+    "Mark Obtained (Hindi)": 85,
+    "Mark Obtained (English)": 90,
+    "Mark Obtained (Maths)": 92,
+    "Mark Obtained (Science)": 88,
+    "Percentage": 88.75,
+    "Grade": "A",
+    "Pass/Fail": "Pass",
+    "Enrollment Number": "ENR001AS"
+  },
+  {
+    "Student Roll Number": 2002,
+    "Student Name": "Bhawna Singh",
+    "Mark Obtained (Hindi)": 78,
+    "Mark Obtained (English)": 82,
+    "Mark Obtained (Maths)": 75,
+    "Mark Obtained (Science)": 80,
+    "Percentage": 78.75,
+    "Grade": "B",
+    "Pass/Fail": "Pass",
+    "Enrollment Number": "ENR002BS"
+  },
+  {
+    "Student Roll Number": 2003,
+    "Student Name": "Chirag Gupta",
+    "Mark Obtained (Hindi)": 65,
+    "Mark Obtained (English)": 70,
+    "Mark Obtained (Maths)": 68,
+    "Mark Obtained (Science)": 72,
+    "Percentage": 68.75,
+    "Grade": "C",
+    "Pass/Fail": "Pass",
+    "Enrollment Number": "ENR003CG"
+  },
+  {
+    "Student Roll Number": 2004,
+    "Student Name": "Divya Prakash",
+    "Mark Obtained (Hindi)": 40,
+    "Mark Obtained (English)": 55,
+    "Mark Obtained (Maths)": 35,
+    "Mark Obtained (Science)": 60,
+    "Percentage": 47.5,
+    "Grade": "D",
+    "Pass/Fail": "Fail",
+    "Enrollment Number": "ENR004DP"
+  },
+  {
+    "Student Roll Number": 2005,
+    "Student Name": "Ekta Yadav",
+    "Mark Obtained (Hindi)": 92,
+    "Mark Obtained (English)": 88,
+    "Mark Obtained (Maths)": 95,
+    "Mark Obtained (Science)": 90,
+    "Percentage": 91.25,
+    "Grade": "A",
+    "Pass/Fail": "Pass",
+    "Enrollment Number": "ENR005EY"
+  }
+]
