@@ -3,17 +3,81 @@
   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>School Online Result</title>
+      <title>www.mahsua.com</title>
       <!-- Tailwind CSS CDN -->
-      <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
-      <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+      <script src="https://cdn.tailwindcss.com"></script>
+      <!-- Font for icons (Lucide Icons is no longer needed since theme toggle is removed) -->
+      <!-- <script src="https://unpkg.com/lucide@latest"></script> -->
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-      <!-- Custom CSS for additional styling -->
       <style>
-          /* Basic body font and background are handled by Tailwind in index.html */
+          :root {
+              --primary-blue: #3b82f6; /* blue-500 */
+              --accent-pink: #ec4899; /* pink-500 */
+              --accent-green: #22c55e; /* green-500 */
+              --bg-page: #f0f4f8; /* Light blue-gray background for the page */
+              --bg-card: #ffffff; /* White background for the main card */
+              --text-primary: #1a202c; /* Dark text */
+              --text-secondary: #4a5568; /* Slightly lighter text */
+              --border-light: #cbd5e0; /* Light gray border */
+              --header-bg: #e2e8f0; /* Light header background for tables */
+          }
+
           body {
               font-family: 'Inter', sans-serif;
+              background-color: var(--bg-page);
+              color: var(--text-primary);
           }
+
+          /* Main container styling */
+          .result-container {
+              background-color: var(--bg-card);
+              border-color: var(--primary-blue); /* Top border color */
+          }
+
+          /* Text colors */
+          .text-gray-800 {
+              color: var(--text-primary);
+          }
+          .text-gray-600 {
+              color: var(--text-secondary);
+          }
+          .text-blue-600 {
+              color: var(--primary-blue);
+          }
+          .text-red-600 {
+              color: var(--accent-pink); /* Using pink for error messages */
+          }
+
+          /* Input and select styles */
+          input, select {
+              background-color: var(--bg-card);
+              color: var(--text-primary);
+              border-color: var(--border-light);
+          }
+          input::placeholder {
+              color: var(--text-secondary);
+              opacity: 0.7;
+          }
+          .focus\:ring-blue-500:focus {
+              outline-color: var(--primary-blue);
+              border-color: var(--primary-blue);
+          }
+
+          /* Buttons */
+          .bg-blue-600 {
+              background-color: var(--primary-blue);
+          }
+          .hover\:bg-blue-700:hover {
+              background-color: #2563eb; /* A slightly darker blue for hover */
+          }
+          .bg-gray-500 {
+              background-color: #64748b; /* A standard gray for print button */
+          }
+          .hover\:bg-gray-600:hover {
+              background-color: #475569; /* Darker gray for print button hover */
+          }
+
 
           /* Enhancements for input fields and select elements */
           input[type="number"]::-webkit-inner-spin-button,
@@ -27,29 +91,29 @@
 
           /* Styling for the result card */
           .result-card {
-              background-color: #f9fafb; /* Light gray background for the card */
-              border: 1px solid #e2e8f0; /* Light border */
+              background-color: var(--bg-page); /* A slightly different background for the result card */
+              border: 1px solid var(--border-light);
               padding: 1.5rem;
               border-radius: 0.5rem;
               box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-              margin-top: 1.5rem; /* Space from button */
+              margin-top: 1.5rem;
           }
 
           /* Styling for headings inside result card */
           .result-card h2 {
               font-size: 1.75rem; /* text-2xl */
               font-weight: 700; /* font-bold */
-              color: #1a202c; /* gray-900 */
+              color: var(--text-primary);
               margin-bottom: 1rem;
               text-align: center;
           }
 
-          /* Styling for key-value pairs in result card */
+          /* Styling for key-value pairs in result card - Gaps reduced here! */
           .result-item {
               display: flex;
               justify-content: space-between;
-              padding: 0.5rem 0;
-              border-bottom: 1px dashed #cbd5e0; /* light gray dashed line */
+              padding: 0.3rem 0; /* Reduced padding for tighter spacing */
+              border-bottom: 1px dashed var(--border-light);
           }
 
           .result-item:last-child {
@@ -57,14 +121,14 @@
           }
 
           .result-item .label {
-              font-weight: 500; /* font-medium */
-              color: #4a5568; /* gray-700 */
+              font-weight: 500;
+              color: var(--text-secondary);
           }
 
           .result-item .value {
-              font-weight: 600; /* font-semibold */
-              color: #2d3748; /* gray-800 */
-              text-align: right; /* Align value to the right */
+              font-weight: 600;
+              color: var(--text-primary);
+              text-align: right;
           }
 
           /* Styling for subject marks table */
@@ -73,18 +137,19 @@
               border-collapse: collapse;
               margin-top: 1.5rem;
               font-size: 0.95rem;
+              color: var(--text-primary);
           }
 
           .marks-table th, .marks-table td {
-              border: 1px solid #cbd5e0; /* Border for table cells */
+              border: 1px solid var(--border-light);
               padding: 0.75rem;
               text-align: left;
           }
 
           .marks-table th {
-              background-color: #edf2f7; /* gray-200 */
+              background-color: var(--header-bg);
               font-weight: 600;
-              color: #2d3748; /* gray-800 */
+              color: var(--text-primary);
           }
 
           .marks-table tr:nth-child(even) {
@@ -97,20 +162,64 @@
 
           /* Specific styling for Pass/Fail status */
           .status-pass {
-              color: #10b981; /* green-500 */
+              color: var(--accent-green); /* green-500 */
               font-weight: 700;
           }
 
           .status-fail {
-              color: #ef4444; /* red-500 */
+              color: var(--accent-pink); /* pink-500 */
               font-weight: 700;
+          }
+
+          /* Print specific styles */
+          @media print {
+              body {
+                  background-color: white !important;
+                  color: black !important;
+              }
+              .result-container, .result-card {
+                  background-color: white !important;
+                  border: 1px solid black !important;
+                  box-shadow: none !important;
+              }
+              /* Hide form elements and buttons */
+              .grid, .text-center.text-gray-600, button, #messageDisplay,
+              h1.text-3xl { /* Adjusted to target specifically the main heading for print */
+                  display: none !important;
+              }
+              /* Make result card take full width for print */
+              .result-card {
+                  margin-top: 0 !important;
+                  padding: 1rem !important;
+                  width: 100% !important;
+                  max-width: 100% !important;
+              }
+              /* Ensure result heading is visible */
+              .result-card h2 {
+                  display: block !important;
+                  font-size: 1.5em !important;
+                  color: black !important;
+                  margin-bottom: 0.5em !important;
+              }
+              /* Ensure tables and items have proper print styles */
+              .marks-table, .marks-table th, .marks-table td {
+                  border-color: black !important;
+                  color: black !important;
+              }
+              .result-item, .result-item .label, .result-item .value {
+                  border-color: black !important;
+                  color: black !important;
+                  padding: 0.2rem 0 !important; /* Adjust padding for print if needed */
+              }
           }
       </style>
   </head>
-  <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4 font-inter">
-      <div class="bg-white p-6 md:p-10 rounded-lg shadow-xl w-full max-w-2xl border-t-4 border-blue-500">
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4 font-inter relative">
+      <!-- Removed Theme Toggle Button -->
+
+      <div class="bg-white p-6 md:p-10 rounded-lg shadow-xl w-full max-w-2xl border-t-4 border-pink-500 result-container">
           <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-6">
-              School Online Result Portal
+              MAHSUA School Online Result Portal
           </h1>
           <p class="text-center text-gray-600 mb-8">Enter your details to view your result.</p>
 
@@ -122,7 +231,7 @@
                       type="number"
                       id="rollNumber"
                       placeholder="e.g., 2001"
-                      class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                      class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                   />
               </div>
 
@@ -131,7 +240,7 @@
                   <label for="classSelect" class="block text-gray-700 text-sm font-semibold mb-2">Select Class</label>
                   <select
                       id="classSelect"
-                      class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 bg-white"
+                      class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                   >
                       <!-- Options will be populated by JavaScript -->
                   </select>
@@ -144,7 +253,7 @@
                       type="text"
                       id="enrollmentNumber"
                       placeholder="e.g., ENR001AS"
-                      class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                      class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                   />
               </div>
           </div>
@@ -152,7 +261,7 @@
           <!-- View Result Button -->
           <button
               id="viewResultBtn"
-              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              class="w-full bg-pink-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
               View Result
           </button>
@@ -171,19 +280,23 @@
           <div id="resultDisplay" class="mt-8">
               <!-- Student result details will be dynamically inserted here -->
           </div>
+
+          <!-- Print Button (conditionally displayed by JS after result is shown) -->
+          <button
+              id="printResultBtn"
+              class="hidden w-full mt-4 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+          >
+              Print Result
+          </button>
       </div>
 
       <!-- JavaScript Logic -->
       <script>
           // --- Data Source Configuration ---
-          // Mapping of class names to their corresponding JSON file paths
-          // Ensure these JSON files are placed in a 'data' subfolder relative to index.html
           const classDataPaths = {
               "Class 1": "data/class_1.json",
               "Class 2": "data/class_2.json"
-              // Add more classes here as you create their JSON files:
-              // "Class 3": "data/class_3.json",
-              // "Class 4": "data/class_4.json"
+              // Add more classes here as you create their JSON files
           };
 
           // Cache for fetched data to avoid re-fetching the same class multiple times
@@ -197,6 +310,9 @@
           const loadingIndicator = document.getElementById('loadingIndicator');
           const messageDisplay = document.getElementById('messageDisplay');
           const resultDisplay = document.getElementById('resultDisplay');
+          const printResultBtn = document.getElementById('printResultBtn');
+          // Removed themeToggle element reference
+
 
           // --- Utility Functions ---
 
@@ -216,6 +332,7 @@
                   messageDisplay.classList.add('text-gray-600');
               }
               resultDisplay.innerHTML = ''; // Clear previous results
+              printResultBtn.classList.add('hidden'); // Hide print button
           }
 
           /**
@@ -235,13 +352,13 @@
               header.textContent = `Result for ${selectedClass}`;
               resultCard.appendChild(header);
 
-              // General student details
+              // General student details (spacing adjusted via CSS padding, not flex gaps)
               const detailsContainer = document.createElement('div');
-              detailsContainer.className = 'space-y-2'; // Tailwind for vertical spacing
+              detailsContainer.className = ''; // No spacing class needed here, controlled by .result-item padding
 
               const createResultItem = (label, value, valueClass = '') => {
                   const item = document.createElement('div');
-                  item.className = 'result-item'; // Custom class
+                  item.className = 'result-item'; // Custom class with adjusted padding
                   const labelSpan = document.createElement('span');
                   labelSpan.className = 'label'; // Custom class
                   labelSpan.textContent = label;
@@ -297,7 +414,11 @@
               resultCard.appendChild(marksTable);
 
               resultDisplay.appendChild(resultCard);
+              printResultBtn.classList.remove('hidden'); // Show print button after result is rendered
           }
+
+          // --- Removed Theme Switching Logic ---
+
 
           // --- Main Logic ---
 
@@ -371,6 +492,7 @@
               loadingIndicator.classList.remove('hidden'); // Show loading indicator
               messageDisplay.innerHTML = ''; // Clear previous messages
               resultDisplay.innerHTML = ''; // Clear previous results
+              printResultBtn.classList.add('hidden'); // Hide print button while fetching
 
               try {
                   // Fetch data for the selected class
@@ -399,6 +521,12 @@
                   loadingIndicator.classList.add('hidden'); // Hide loading indicator
               }
           });
+
+          // Event listener for Print button
+          printResultBtn.addEventListener('click', () => {
+              window.print();
+          });
+
 
           // --- Initialize ---
           // Populate the class dropdown when the page loads
