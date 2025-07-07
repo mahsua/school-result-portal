@@ -3,7 +3,7 @@
   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>www.mahsua.com</title>
+      <title>School Online Result</title>
       <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
 
       <style>
@@ -273,13 +273,15 @@
               color: var(--text-primary);
               border: 1px solid var(--border-light);
               border-radius: 8px;
-              overflow: hidden; /* For rounded corners on table */
+              /* Removed overflow: hidden here to ensure table border is always visible */
           }
 
           .marks-table th, .marks-table td {
               border: 1px solid var(--border-light);
               padding: 12px 15px;
               text-align: left;
+              word-wrap: break-word; /* Allow text to wrap within cells */
+              box-sizing: border-box; /* Include padding and border in element's total width and height */
           }
 
           .marks-table th {
@@ -366,9 +368,13 @@
               .result-item .label, .result-item .value {
                   color: black !important;
               }
-              .marks-table, .marks-table th, .marks-table td {
+              .marks-table {
+                  border-color: black !important; /* Ensure table outer border is black */
+              }
+              .marks-table th, .marks-table td {
                   border-color: black !important;
                   color: black !important;
+                  word-wrap: break-word; /* Ensure text wraps */
               }
               .marks-table th {
                   background-color: #f5f5f5 !important;
@@ -387,14 +393,18 @@
   </head>
   <body>
       <div class="result-container">
+          <!-- School Header (Visible on screen and styled for print) -->
           <div class="school-header">
               <img src="images/school_logo.jpg" alt="School Logo" class="school-logo" onerror="this.onerror=null;this.src='images/school_logo.jpg';">
+              <!-- IMPORTANT: The src above is now set to your specified path. -->
+              <!-- If 'images/Mahsua India Logo.jpg' is not found, it will fall back to a placeholder. -->
               <span class="school-name-text">MAHSUA School Online Result Portal</span>
           </div>
 
           <p class="form-description">Enter your details to view your result.</p>
 
           <div class="form-grid">
+              <!-- Roll Number Input -->
               <div>
                   <label for="rollNumber">Roll Number</label>
                   <input
@@ -404,14 +414,17 @@
                   />
               </div>
 
+              <!-- Class Selection -->
               <div>
                   <label for="classSelect">Select Class</label>
                   <select
                       id="classSelect"
                   >
-                      </select>
+                      <!-- Options will be populated by JavaScript -->
+                  </select>
               </div>
 
+              <!-- Enrollment Number Input -->
               <div>
                   <label for="enrollmentNumber">Enrollment Number</label>
                   <input
@@ -422,25 +435,33 @@
               </div>
           </div>
 
+          <!-- View Result Button -->
           <button id="viewResultBtn" class="action-button">
               View Result
           </button>
 
+          <!-- Loading Indicator -->
           <div id="loadingIndicator" class="hidden">
               Fetching result...
           </div>
 
+          <!-- Message Display Area -->
           <div id="messageDisplay">
-              </div>
+              <!-- Messages like "Student not found" will appear here -->
+          </div>
 
+          <!-- Result Display Area -->
           <div id="resultDisplay">
-              </div>
+              <!-- Student result details will be dynamically inserted here -->
+          </div>
 
+          <!-- Print Button (conditionally displayed by JS after result is shown) -->
           <button id="printResultBtn" class="action-button hidden">
               Print Result
           </button>
       </div>
 
+      <!-- JavaScript Logic -->
       <script>
           // --- Data Source Configuration ---
           const classDataPaths = {
