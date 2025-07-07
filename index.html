@@ -5,10 +5,8 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>www.mahsua.com</title>
       <!-- Tailwind CSS CDN -->
-      <script src="https://cdn.tailwindcss.com"></script>
-      <!-- Font for icons (Lucide Icons is no longer needed since theme toggle is removed) -->
-      <!-- <script src="https://unpkg.com/lucide@latest"></script> -->
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+      <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
 
       <style>
           :root {
@@ -87,6 +85,29 @@
           }
           input[type="number"] {
               -moz-appearance: textfield;
+          }
+
+          /* School Header Styling */
+          .school-header {
+              display: flex;
+              align-items: center;
+              justify-content: center; /* Center horizontally */
+              gap: 1rem; /* Space between logo and text */
+              margin-bottom: 2rem;
+              padding-bottom: 1rem;
+              border-bottom: 1px solid var(--border-light);
+          }
+
+          .school-logo {
+              width: 60px; /* Adjust size as needed */
+              height: 60px;
+              object-fit: contain;
+          }
+
+          .school-name {
+              font-size: 2.25rem; /* text-4xl */
+              font-weight: 700;
+              color: var(--primary-blue); /* School name in primary blue */
           }
 
           /* Styling for the result card */
@@ -176,24 +197,53 @@
               body {
                   background-color: white !important;
                   color: black !important;
+                  margin: 0; /* Remove default body margin */
               }
-              .result-container, .result-card {
-                  background-color: white !important;
-                  border: 1px solid black !important;
+              /* Hide the main container's shadow and border for print */
+              .result-container {
                   box-shadow: none !important;
+                  border: none !important;
+                  padding: 0 !important; /* Remove padding from main container */
+                  width: 100% !important; /* Ensure it takes full width */
+                  max-width: 100% !important;
               }
               /* Hide form elements and buttons */
               .grid, .text-center.text-gray-600, button, #messageDisplay,
-              h1.text-3xl { /* Adjusted to target specifically the main heading for print */
+              h1.text-3xl { /* Target the main h1 specifically */
                   display: none !important;
               }
-              /* Make result card take full width for print */
+              /* Make result card take full width for print and remove its shadow */
               .result-card {
                   margin-top: 0 !important;
                   padding: 1rem !important;
                   width: 100% !important;
                   max-width: 100% !important;
+                  box-shadow: none !important; /* Remove shadow for print */
+                  border: 1px solid black !important; /* Ensure inner border is black */
+                  background-color: white !important; /* Ensure white background */
               }
+              /* Ensure school header is visible for print */
+              .school-header {
+                  display: flex !important; /* Make it visible */
+                  justify-content: center !important; /* Center content */
+                  align-items: center !important;
+                  margin-top: 1rem !important;
+                  margin-bottom: 1rem !important;
+                  padding-bottom: 0.5rem !important;
+                  border-bottom: 1px solid black !important; /* Black border for print */
+              }
+              .school-logo {
+                  display: block !important; /* Ensure logo is visible */
+                  width: 50px !important; /* Adjust size for print */
+                  height: 50px !important;
+              }
+              .school-name {
+                  display: block !important; /* Ensure name is visible */
+                  font-size: 1.8rem !important; /* Adjust font size for print */
+                  color: black !important; /* Black text for print */
+                  font-weight: bold !important;
+              }
+
               /* Ensure result heading is visible */
               .result-card h2 {
                   display: block !important;
@@ -206,6 +256,13 @@
                   border-color: black !important;
                   color: black !important;
               }
+              .marks-table th {
+                background-color: #f0f0f0 !important; /* Light gray for print table header */
+              }
+              .marks-table tr:nth-child(even) {
+                  background-color: #fafafa !important; /* Slightly off-white for even rows */
+              }
+
               .result-item, .result-item .label, .result-item .value {
                   border-color: black !important;
                   color: black !important;
@@ -215,15 +272,20 @@
       </style>
   </head>
   <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4 font-inter relative">
-      <!-- Removed Theme Toggle Button -->
-
-      <div class="bg-white p-6 md:p-10 rounded-lg shadow-xl w-full max-w-2xl border-t-4 border-pink-500 result-container">
-          <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-6">
-              MAHSUA School Online Result Portal
+      <div class="bg-white p-6 md:p-10 rounded-lg shadow-xl w-full max-w-2xl border-t-4 border-blue-500 result-container">
+          <!-- School Header (visible on screen, styled for print) -->
+          <div class="school-header hidden-on-print"> <!-- This class will be removed by print media query -->
+              <img src="[https://placehold.co/60x60/E0F2FE/1D4ED8?text=Logo](https://placehold.co/60x60/E0F2FE/1D4ED8?text=Logo)" alt="School Logo" class="school-logo">
+              <!-- Replace the src above with your actual logo URL, e.g., src="images/school_logo.jpg" -->
+              <span class="school-name">MAHSUA School Online Result Portal</span>
+          </div>
+          <!-- The h1 below is hidden on print, school-name above is shown -->
+          <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-6 print-hidden">
+              School Online Result Portal
           </h1>
-          <p class="text-center text-gray-600 mb-8">Enter your details to view your result.</p>
+          <p class="text-center text-gray-600 mb-8 print-hidden">Enter your details to view your result.</p>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 print-hidden">
               <!-- Roll Number Input -->
               <div>
                   <label for="rollNumber" class="block text-gray-700 text-sm font-semibold mb-2">Roll Number</label>
@@ -261,18 +323,18 @@
           <!-- View Result Button -->
           <button
               id="viewResultBtn"
-              class="w-full bg-pink-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 print-hidden"
           >
               View Result
           </button>
 
           <!-- Loading Indicator -->
-          <div id="loadingIndicator" class="mt-4 text-center text-blue-600 font-medium hidden">
+          <div id="loadingIndicator" class="mt-4 text-center text-blue-600 font-medium hidden print-hidden">
               Fetching result...
           </div>
 
           <!-- Message Display Area -->
-          <div id="messageDisplay" class="mt-6 text-center text-red-600 font-medium">
+          <div id="messageDisplay" class="mt-6 text-center text-red-600 font-medium print-hidden">
               <!-- Messages like "Student not found" will appear here -->
           </div>
 
@@ -284,7 +346,7 @@
           <!-- Print Button (conditionally displayed by JS after result is shown) -->
           <button
               id="printResultBtn"
-              class="hidden w-full mt-4 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              class="hidden w-full mt-4 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 print-hidden"
           >
               Print Result
           </button>
@@ -311,7 +373,6 @@
           const messageDisplay = document.getElementById('messageDisplay');
           const resultDisplay = document.getElementById('resultDisplay');
           const printResultBtn = document.getElementById('printResultBtn');
-          // Removed themeToggle element reference
 
 
           // --- Utility Functions ---
@@ -347,7 +408,7 @@
               const resultCard = document.createElement('div');
               resultCard.className = 'result-card'; // Custom class from style.css
 
-              // Create header
+              // Create header for result card (visible on screen and print)
               const header = document.createElement('h2');
               header.textContent = `Result for ${selectedClass}`;
               resultCard.appendChild(header);
@@ -371,6 +432,8 @@
               };
 
               detailsContainer.appendChild(createResultItem('Student Name', studentData['Student Name']));
+              // Add Class information here
+              detailsContainer.appendChild(createResultItem('Class', selectedClass.replace('Class ', ''))); // Extract just the number
               detailsContainer.appendChild(createResultItem('Roll Number', studentData['Student Roll Number']));
               detailsContainer.appendChild(createResultItem('Enrollment Number', studentData['Enrollment Number']));
               detailsContainer.appendChild(createResultItem('Percentage', `${studentData['Percentage']}%`));
@@ -416,8 +479,6 @@
               resultDisplay.appendChild(resultCard);
               printResultBtn.classList.remove('hidden'); // Show print button after result is rendered
           }
-
-          // --- Removed Theme Switching Logic ---
 
 
           // --- Main Logic ---
