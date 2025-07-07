@@ -3,8 +3,8 @@
   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>www.mahsua.com</title>
-      <!-- Tailwind CSS CDN -->
+      <title>School Online Result</title>
+      <!-- Tailwind CSS CDN - Ensure this is loaded correctly -->
       <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
       <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
 
@@ -363,6 +363,16 @@
 
       <!-- JavaScript Logic -->
       <script>
+          // This script was incorrectly placed inside <style> tags previously.
+          // It's now correctly placed here within a <script> tag.
+          window.onload = function() {
+              if (typeof tailwindcss !== 'undefined' && tailwindcss.config) {
+                  // Re-process Tailwind classes if needed, though usually not necessary with CDN
+                  // This block is often used for custom Tailwind configurations or dynamic class processing.
+                  // For simple CDN use, it might not be strictly necessary, but doesn't hurt.
+              }
+          };
+
           // --- Data Source Configuration ---
           const classDataPaths = {
               "Class 1": "data/class_1.json",
