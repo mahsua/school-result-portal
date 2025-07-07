@@ -356,7 +356,8 @@
                   margin-top: 0 !important;
                   padding: 20px !important;
                   width: 100% !important;
-                  max-width: 100% !important;
+                  max-width: 100% !important; /* Ensure it takes full width */
+                  box-sizing: border-box !important; /* Include padding/border in width */
               }
               .result-card h2 {
                   color: black !important;
@@ -369,12 +370,16 @@
                   color: black !important;
               }
               .marks-table {
-                  border-color: black !important; /* Ensure table outer border is black */
+                  border: 1px solid black !important; /* Ensure table outer border is black */
+                  table-layout: fixed !important; /* Force fixed column widths */
+                  width: 100% !important; /* Ensure table takes full width */
               }
               .marks-table th, .marks-table td {
                   border-color: black !important;
                   color: black !important;
-                  word-wrap: break-word; /* Ensure text wraps */
+                  word-wrap: break-word !important; /* Ensure text wraps */
+                  overflow-wrap: break-word !important; /* Fallback for word-wrap */
+                  width: 50% !important; /* Distribute width evenly for two columns */
               }
               .marks-table th {
                   background-color: #f5f5f5 !important;
