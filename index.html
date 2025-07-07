@@ -87,9 +87,9 @@
               -moz-appearance: textfield;
           }
 
-          /* School Header Styling */
+          /* School Header Styling (Now visible on screen by default) */
           .school-header {
-              display: flex;
+              display: flex; /* Make it visible on screen */
               align-items: center;
               justify-content: center; /* Center horizontally */
               gap: 1rem; /* Space between logo and text */
@@ -104,11 +104,23 @@
               object-fit: contain;
           }
 
-          .school-name {
+          .school-name-text {
               font-size: 2.25rem; /* text-4xl */
               font-weight: 700;
               color: var(--primary-blue); /* School name in primary blue */
+              text-align: center; /* Ensure text is centered within its space */
           }
+          /* Adjust font size for smaller screens */
+          @media (max-width: 768px) {
+            .school-name-text {
+              font-size: 1.75rem; /* text-3xl on smaller screens */
+            }
+            .school-logo {
+              width: 50px;
+              height: 50px;
+            }
+          }
+
 
           /* Styling for the result card */
           .result-card {
@@ -207,9 +219,8 @@
                   width: 100% !important; /* Ensure it takes full width */
                   max-width: 100% !important;
               }
-              /* Hide form elements and buttons */
-              .grid, .text-center.text-gray-600, button, #messageDisplay,
-              h1.text-3xl { /* Target the main h1 specifically */
+              /* Hide form elements and buttons that shouldn't be printed */
+              .grid, .text-center.text-gray-600, button, #messageDisplay {
                   display: none !important;
               }
               /* Make result card take full width for print and remove its shadow */
@@ -222,7 +233,7 @@
                   border: 1px solid black !important; /* Ensure inner border is black */
                   background-color: white !important; /* Ensure white background */
               }
-              /* Ensure school header is visible for print */
+              /* Ensure school header is visible and styled for print */
               .school-header {
                   display: flex !important; /* Make it visible */
                   justify-content: center !important; /* Center content */
@@ -237,7 +248,7 @@
                   width: 50px !important; /* Adjust size for print */
                   height: 50px !important;
               }
-              .school-name {
+              .school-name-text { /* Use this class for the school name in print */
                   display: block !important; /* Ensure name is visible */
                   font-size: 1.8rem !important; /* Adjust font size for print */
                   color: black !important; /* Black text for print */
@@ -273,19 +284,17 @@
   </head>
   <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4 font-inter relative">
       <div class="bg-white p-6 md:p-10 rounded-lg shadow-xl w-full max-w-2xl border-t-4 border-blue-500 result-container">
-          <!-- School Header (visible on screen, styled for print) -->
-          <div class="school-header hidden-on-print"> <!-- This class will be removed by print media query -->
-              <img src="[https://placehold.co/60x60/E0F2FE/1D4ED8?text=Logo](https://placehold.co/60x60/E0F2FE/1D4ED8?text=Logo)" alt="School Logo" class="school-logo">
-              <!-- Replace the src above with your actual logo URL, e.g., src="images/school_logo.jpg" -->
-              <span class="school-name">MAHSUA School Online Result Portal</span>
+          <!-- School Header (Now visible on screen and styled for print) -->
+          <div class="school-header">
+              <img src="images/school_logo.jpg" alt="School Logo" class="school-logo" onerror="this.onerror=null;this.src='[https://placehold.co/60x60/E0F2FE/1D4ED8?text=Logo](https://placehold.co/60x60/E0F2FE/1D4ED8?text=Logo)';">
+              <!-- IMPORTANT: The src above is now set to your specified path. -->
+              <!-- If 'images/school_logo.jpg' is not found, it will fall back to a placeholder. -->
+              <span class="school-name-text">MAHSUA School Online Result Portal</span>
           </div>
-          <!-- The h1 below is hidden on print, school-name above is shown -->
-          <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-6 print-hidden">
-              School Online Result Portal
-          </h1>
-          <p class="text-center text-gray-600 mb-8 print-hidden">Enter your details to view your result.</p>
+          <!-- Removed the duplicate h1 as school-header now serves as the main title -->
+          <p class="text-center text-gray-600 mb-8">Enter your details to view your result.</p>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 print-hidden">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <!-- Roll Number Input -->
               <div>
                   <label for="rollNumber" class="block text-gray-700 text-sm font-semibold mb-2">Roll Number</label>
@@ -323,18 +332,18 @@
           <!-- View Result Button -->
           <button
               id="viewResultBtn"
-              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 print-hidden"
+              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
               View Result
           </button>
 
           <!-- Loading Indicator -->
-          <div id="loadingIndicator" class="mt-4 text-center text-blue-600 font-medium hidden print-hidden">
+          <div id="loadingIndicator" class="mt-4 text-center text-blue-600 font-medium hidden">
               Fetching result...
           </div>
 
           <!-- Message Display Area -->
-          <div id="messageDisplay" class="mt-6 text-center text-red-600 font-medium print-hidden">
+          <div id="messageDisplay" class="mt-6 text-center text-red-600 font-medium">
               <!-- Messages like "Student not found" will appear here -->
           </div>
 
@@ -346,7 +355,7 @@
           <!-- Print Button (conditionally displayed by JS after result is shown) -->
           <button
               id="printResultBtn"
-              class="hidden w-full mt-4 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 print-hidden"
+              class="hidden w-full mt-4 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
               Print Result
           </button>
